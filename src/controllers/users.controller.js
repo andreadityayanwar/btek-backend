@@ -52,13 +52,31 @@ exports.readUserById = async(req, res) => {
   }
 };
 
-exports.editUser = async(req, res) => {
+exports.editUserById = async(req, res) => {
   try {
-    const user = await userModel.selectUserById(req.params.id);
+    const update = await userModel.updateUserById(req.params.id, req.body.email.password);
+    const user = update.rows[0];
 
     return res.json({
       success: true,
-      message:"Detail user",
+      message:"Update Success",
+      result: user
+    });
+  }catch (err){
+    return res.status(500).json({
+      success:false,
+      message: "Error"+err.message
+    });
+  }
+};
+
+exports.deleteUserById = async(req, res) => {
+  try {
+    const user = await userModel.deleteUserById(req.params.id);
+
+    return res.json({
+      success: true,
+      message:"User Deleted",
       result: user.rows[0]
     });
   }catch (err){
