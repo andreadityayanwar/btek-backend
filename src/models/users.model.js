@@ -8,8 +8,14 @@ exports.insertUser = (data) => {
   return db.query(sql, params);
 };
 
-exports.selectAllUsers = () => {
-  const sql = `SELECT * FROM "${table}"`;
+exports.selectAllUsers = (data) => {
+  const sql = `SELECT * FROM "${table}" WHERE "${data.searchBy}" LIKE '%${data.search}%' ORDER BY "${data.sortBy}" ${data.reverse? "DESC" : "ASC"} LIMIT $1 OFFSET $2`;
+  const params = [data.limit, data.offset];
+  return db.query(sql, params);
+};
+
+exports.selectAll = (data) => {
+  const sql = `SELECT * FROM ${table} WHERE "${data.searchBy} LIKE '%${data.search}%'`;
   return db.query(sql);
 };
 
@@ -19,14 +25,14 @@ exports.selectUserById = (id) => {
   return db.query(sql, params);
 };
 
-exports.updateUserById = (id, email, password) => {
+exports.updateUserById = (id, data) => {
   const sql = `UPDATE ${table} SET id = $1 email = $2, password = $3 WHERE RETURNING *`;
-  const params = [id, email, password];
+  const params = [id, data.email, data.password];
   return db.query(sql, params);
 };
 
-exports.deleteUserById = (data) => {
+exports.deleteUserById = (id) => {
   const sql = `DELETE FROM ${table} WHERE id = $1 RETURNING *`;
-  const params = [data.id];
+  const params = [id];
   return db.query(sql, params);
 };
