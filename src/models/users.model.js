@@ -25,7 +25,13 @@ exports.selectUserById = (id) => {
   return db.query(sql, params);
 };
 
-exports.updateUserById = (id, data) => {
+exports.selectUserByEmail = (email) => {
+  const sql = `SELECT * FROM ${table} WHERE email = $1`;
+  const params = [email];
+  return db.query(sql, params);
+};
+
+exports.editUser = (id, data) => {
   const sql = `UPDATE ${table} SET id = $1 email = $2, password = $3 WHERE RETURNING *`;
   const params = [id, data.email, data.password];
   return db.query(sql, params);
