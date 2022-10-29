@@ -1,4 +1,4 @@
-
+/* eslint-disable no-undef */
 const userModel = require("../models/users.model");
 const profileModel = require("../models/profile.model");
 const forgotPasswordModel = require("../models/forgorPassword.model");
@@ -93,7 +93,7 @@ exports.forgotPassword = async(req, res) => {
         return res.json({
           success: true,
           message: "Forgot password request has been sent!",
-          results: forgot
+          results: forgot.rows
         });
       }
     } else {
