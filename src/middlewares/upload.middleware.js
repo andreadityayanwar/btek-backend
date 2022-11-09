@@ -8,6 +8,7 @@ const extGenerator = (mimeType) => {
   return sortedExt[mime.indexOf(mimeType)];
 };
 
+// eslint-disable-next-line no-unused-vars
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, path.join("assets", "uploads"));
@@ -30,8 +31,7 @@ const fileFilter = (req, file, cb) => {
 };
 
 const mult  = multer({ 
-  storage,
-  storageCloudinary,
+  storage:storageCloudinary,
   fileFilter,
   limits : {
     fileSize: 1 * 1000 * 1000
