@@ -24,6 +24,7 @@ exports.readProfileById = async(req, res)=> {
 
 exports.updateProfile = async(req, res) => {
   try{
+    console.log(req);
     delete req.body.picture;
     if(req.file) {
       req.body.picture = req.file.path;
