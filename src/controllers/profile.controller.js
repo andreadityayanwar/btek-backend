@@ -26,7 +26,7 @@ exports.updateProfile = async(req, res) => {
   try{
     delete req.body.picture;
     if(req.file) {
-      req.body.picture = req.file.filename;
+      req.body.picture = req.file.path;
     }
     const profile = await profileModel.updateProfileById(req.userData.id, req.body);
     if(profile.rowCount){
