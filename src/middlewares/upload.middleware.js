@@ -1,5 +1,6 @@
 const multer = require("multer");
 const path =  require("path");
+const storageCloudinary =  require("./cloudinary.middleware");
 
 const extGenerator = (mimeType) => {
   const mime = ["image/jpeg", "image/png", "image/webp"];
@@ -30,6 +31,7 @@ const fileFilter = (req, file, cb) => {
 
 const mult  = multer({ 
   storage,
+  storageCloudinary,
   fileFilter,
   limits : {
     fileSize: 1 * 1000 * 1000
